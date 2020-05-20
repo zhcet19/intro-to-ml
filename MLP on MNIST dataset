@@ -15,12 +15,12 @@ mnist = input_data.read_data_sets("/tmp/MNIST_data/", one_hot=True)
 x = tf.placeholder(tf.float32, [None, 784]) 
 stddev1 = 2 / np.sqrt(784 + 500) 
 init1 = tf.truncated_normal((784, 500), stddev=stddev1) 
-W1 = tf.Variable(init1)
+w1 = tf.Variable(init1)
 b1=tf.Variable(tf.zeros([500])) 
 y1=tf.nn.relu(tf.matmul(x,w1)+b1) 
 stddev1 = 2 / np.sqrt(500 + 100) 
 init1 = tf.truncated_normal((500, 100), stddev=stddev1) 
-W2 = tf.Variable(init1)
+w2 = tf.Variable(init1)
 b2=tf.Variable(tf.zeros([100])) 
 y2=tf.nn.relu(tf.matmul(y1,w2)+b2) 
 w_out=tf.Variable(tf.zeros([100,10])) 
@@ -45,7 +45,7 @@ for _ in trange(total_batch):
 # Test trained model 
 correct_prediction = tf.equal(tf.argmax(y, 1), tf.argmax(y_, 1)) 
 accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32)) 
-print('Test accuracy: {0}'.format(sess.run(accuracy*8.5, feed_dict={x: mnist.test.images, y_: mnist.test.labels}))) 
+print('Test accuracy: {0}'.format(sess.run(accuracy, feed_dict={x: mnist.test.images, y_: mnist.test.labels}))) 
 ​
 sess.close() 
 ​
